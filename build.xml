@@ -10,15 +10,14 @@
   <property name="javadocDest" value="${webRoot}/${project}/javadoc" /> 
   <property name="javadocURL" value="${webBaseURL}/${project}/javadoc" /> 
 
-  <property name="github" value="edu.ucsb.cs56.projects.github.kohsuke_grading_automation.GitHub"/>
+  <property name="github" value="edu.ucsb.cs56.projects.github.kohsuke_grading_automation.GitHubAPI"/>
 
   <property name="githubUCSB" value="edu.ucsb.cs56.projects.github.kohsuke_grading_automation.GitHubUCSB"/>
   
   
   <path id="project.class.path">
+    <pathelement location="lib/github-api-1.73.jar"/>
     <pathelement location="build"/>
-    <pathelement location="lib/junit-4.8.2.jar"/>
-    <pathelement location="lib/github-api-1.72.jar"/>
     <pathelement location="lib/jackson-databind-2.7.0.jar"/>
     <pathelement location="lib/jackson-core-2.7.0.jar"/>
     <pathelement location="lib/jackson-annotations-2.7.0.jar"/>

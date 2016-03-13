@@ -20,7 +20,6 @@ public class Lab02 extends Lab {
   
   Lab02() {
     super();
-    System.out.println(this.names);
   }
 
   protected void initGitHub(String username, String password) {

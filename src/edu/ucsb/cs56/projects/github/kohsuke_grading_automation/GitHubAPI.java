@@ -1,6 +1,7 @@
 package edu.ucsb.cs56.projects.github.kohsuke_grading_automation;
 
 import org.kohsuke.github.*;
+
 import java.util.*;
 
 
@@ -10,7 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class GitHub {
+public class GitHubAPI {
 	public static GHMyself me;
 	public static GHOrganization cs56 = null;
 	
