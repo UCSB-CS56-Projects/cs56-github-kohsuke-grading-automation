@@ -1,0 +1,101 @@
+<project default="compile">
+  
+  <property environment="env" />
+  
+  <property name="webRoot" value="${env.HOME}/public_html/" />
+  <property name="webBaseURL" value="http://www.cs.ucsb.edu/~${env.USER}" />
+  
+  <property name="project" value="github-kohsuke-grading-automation" />
+  
+  <property name="javadocDest" value="${webRoot}/${project}/javadoc" /> 
+  <property name="javadocURL" value="${webBaseURL}/${project}/javadoc" /> 
+
+  <property name="github" value="edu.ucsb.cs56.projects.github.kohsuke_grading_automation.GitHub"/>
+
+  <property name="githubUCSB" value="edu.ucsb.cs56.projects.github.kohsuke_grading_automation.GitHubUCSB"/>
+  
+  
+  <path id="project.class.path">
+    <pathelement location="build"/>
+    <pathelement location="lib/junit-4.8.2.jar"/>
+    <pathelement location="lib/github-api-1.72.jar"/>
+    <pathelement location="lib/jackson-databind-2.7.0.jar"/>
+    <pathelement location="lib/jackson-core-2.7.0.jar"/>
+    <pathelement location="lib/jackson-annotations-2.7.0.jar"/>
+    <pathelement location="lib/commons-io-2.4.jar"/>
+    <pathelement location="lib/commons-codec-1.10.jar"/>
+    <pathelement location="lib/commons-lang3-3.4.jar"/>
+
+    <pathelement location="**/*.jar"/>
+  </path>
+  
+  <target name="compile" description="compiles the program">
+    <mkdir dir="build"/>
+    <javac srcdir="src"
+     destdir="build"
+	   includeantruntime="false"
+	   debug="true"
+	   debuglevel="lines,vars,source">
+      <classpath refid="project.class.path" />
+    </javac>
+    
+  </target> 
+
+
+  <target name="github" depends="compile" description="run example Kohsuke API code, which interacts with github.com">
+    <java classname="${github}" fork="true" >
+      <classpath refid="project.class.path" />
+    </java>
+  </target>
+    
+  <target name="ucsb" depends="compile" description="run GitHub UCSB main program, which provides useful lab information by interacting with github.ucsb.edu">
+    <java classname="${githubUCSB}" fork="true" >
+      <classpath refid="project.class.path" />
+    </java>
+  </target>
+
+  
+  <target name="clean" description="cleans up the directory">
+    <delete dir="build" quiet="true" />
+    <delete dir="javadoc" quiet="true" />
+  </target>
+  
+  
+  <target name="javadoc"
+	  depends="compile"
+	  description="deploys the javadoc onto the web">
+    <delete dir="javadoc" quiet="true"/>
+    <javadoc destdir="javadoc" author="true" version="true" use="true">
+      <fileset dir="src" includes="**/*.java"/>
+      <classpath refid="project.class.path" />
+    </javadoc>
+    
+    
+    <delete quiet="true" dir="${javadocDest}"/>
+    <copy todir="${javadocDest}">
+      <fileset dir="javadoc"/>
+    </copy>
+    <chmod dir="${javadocDest}" perm="755" type="dir" includes="**"/>
+    <chmod dir="${javadocDest}" perm="755" type="file" includes="**/*"/>
+    
+    <echo>Javadoc deployed to ${javadocURL} if on CSIL</echo>
+    <echo> or if not on CSIL, try file:///${javadocDest}/index.html</echo>
+    
+  </target>
+  
+  
+  
+  <target name="test" depends="compile" description="currently no tests available">
+    <junit haltonerror="no" haltonfailure="no">
+      <classpath refid="project.class.path" />
+      <batchtest fork="yes">
+	<fileset dir="src">
+          <!-- this will pick up every class with a name ending in Test -->
+          <include name="*Test.java"/>
+	</fileset>
+      </batchtest>
+      <formatter type="plain" usefile="false" /> 
+    </junit>
+  </target>
+  
+</project>
