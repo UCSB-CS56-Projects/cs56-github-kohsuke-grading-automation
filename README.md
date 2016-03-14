@@ -24,13 +24,13 @@ This repo currently employs a basic object-oriented style. There is an abstract 
 
 ## Suggestions for future authors
 * Rename Lab to LabUCSB
-** Create a new abstract class with name Lab, and a new abstract class with name LabGit
-** Have LabUCSB and LabGit both inherit from Lab, then labs hosted on github.ucsb.edu would inherit from LabUCSB (i.e. 0 - 3), and labs hosted on github.com would inherit from LabGit
+  * Create a new abstract class with name Lab, and a new abstract class with name LabGit
+  * Have LabUCSB and LabGit both inherit from Lab, then labs hosted on github.ucsb.edu would inherit from LabUCSB (i.e. 0 - 3), and labs hosted on github.com would inherit from LabGit
 * Create a class for grading Lab01
 * Make code in Lab00, Lab02, Lab03 DRYer. There seems to be a lot of repetition in those classes that could be abstracted out to a method in LabUCSB
 * Incorporate Bash scripting to programmatically run tests on labs.
-** i.e. use Java code to compile a list of addresses for the repo that can be used as input to git clone <repo_address_here>
-** Pipe that list into a bash script that calls git clone on each repo name, runs a test suite, reports % of tests passed, then deletes the repo when finished
+  * i.e. use Java code to compile a list of addresses for the repo that can be used as input to git clone <repo_address_here>
+  * Pipe that list into a bash script that calls git clone on each repo name, runs a test suite, reports % of tests passed, then deletes the repo when finished
 
 ## Questions
 
